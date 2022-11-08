@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -38,4 +40,23 @@ public class IvanRamin7Test extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-}
+
+    @Test
+    public void testConfirmGuidePage() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String urlGuidePageExpectedResult = "https://openweathermap.org/guide";
+        String titleGuideExpectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+        Thread.sleep(5000);
+        WebElement guideDesktop = getDriver().findElement(
+                By.xpath("//nav[@id = 'nav-website']//div[@id = 'desktop-menu']//a[@href = '/guide']")
+        );
+        guideDesktop.click();
+        String urlGuidePageActualResult = getDriver().getCurrentUrl();
+        String titleGuideActualResult = getDriver().getTitle();
+
+        Assert.assertEquals(urlGuidePageActualResult, urlGuidePageExpectedResult);
+        Assert.assertEquals(titleGuideActualResult, titleGuideExpectedResult);
+    }
+}git
