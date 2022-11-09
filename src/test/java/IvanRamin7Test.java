@@ -14,7 +14,7 @@ public class IvanRamin7Test extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         WebElement searchCity = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
         );
@@ -46,7 +46,7 @@ public class IvanRamin7Test extends BaseTest {
         String titleGuideExpectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         WebElement guideDesktop = getDriver().findElement(
                 By.xpath("//nav[@id = 'nav-website']//div[@id = 'desktop-menu']//a[@href = '/guide']")
         );
