@@ -11,7 +11,6 @@ public class MariaKuzhTest extends BaseTest {
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver_win32\\chromedriver.exe");
         String url = "https://openweathermap.org/";
         String cityName = "Paris";
         String expectedResult = "Paris, FR";
