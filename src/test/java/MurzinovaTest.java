@@ -13,7 +13,7 @@ public class MurzinovaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -44,5 +44,45 @@ public class MurzinovaTest extends BaseTest {
 
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testRedirectingToAPIGuidePage() throws InterruptedException {
+        String urlBasic = "https://openweathermap.org/";
+        String expectedResult = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(urlBasic);
+        getDriver().manage().window().maximize();
+        Thread.sleep(10000);
+
+        WebElement guideLink = getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//a[@href='/guide']"));
+        guideLink.click();
+
+        String actualResult = getDriver().getTitle();
+        Assert.assertEquals(actualResult,expectedResult);
+
+        expectedResult = "https://openweathermap.org/guide";
+        actualResult = getDriver().getCurrentUrl();
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testTemperatureInF() throws InterruptedException {
+        String urlBasic = "https://openweathermap.org/";
+        String expectedResult = "F";
+
+        getDriver().get(urlBasic);
+        Thread.sleep(10000);
+
+        WebElement measureUnitLink = getDriver().findElement(
+                By.xpath("//div[@class='option'][text()='Imperial: °F, mph']"));
+        measureUnitLink.click();
+
+        WebElement cityTemperatureInF = getDriver().findElement(
+                By.xpath("//span[@class='heading'][contains(text(),'F')]"));
+        Thread.sleep(2000);
+
+        Assert.assertTrue(cityTemperatureInF.getText().endsWith(expectedResult));
     }
 }

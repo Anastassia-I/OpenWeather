@@ -1,8 +1,7 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -15,7 +14,7 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(baseUrl);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
         );
@@ -31,10 +30,11 @@ public class GalinaKuklevaTest extends BaseTest {
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text()='Paris, FR ']")
         );
         firstChoiceInDropdownMenu.click();
+        Thread.sleep(3000);
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
-        Thread.sleep(3000);
+
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
@@ -48,10 +48,10 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult_2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(baseUrl);
+        Thread.sleep(10000);
         WebElement guideButton = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//li/a [@href='/guide']")
         );
-        Thread.sleep(5000);
         guideButton.click();
 
         String actualResult_1 = getDriver().getCurrentUrl();
@@ -68,10 +68,10 @@ public class GalinaKuklevaTest extends BaseTest {
         String expectedResult = "°F";
 
         getDriver().get(baseUrl);
+        Thread.sleep(10000);
         WebElement imperialData = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']")
         );
-        Thread.sleep(5000);
         imperialData.click();
         WebElement tempInTheCity = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//span[@class = 'heading']")
@@ -91,10 +91,11 @@ public class GalinaKuklevaTest extends BaseTest {
 
         getDriver().get(baseUrl);
         getDriver().manage().window().maximize();
+        Thread.sleep(10000);
         WebElement supportButton = getDriver().findElement(
                 By.xpath("//div[@id='support-dropdown']")
         );
-        Thread.sleep(5000);
+
         supportButton.click();
         Thread.sleep(5000);
         WebElement subMenuAskAQuestion = getDriver().findElement(
@@ -125,7 +126,6 @@ public class GalinaKuklevaTest extends BaseTest {
         );
         optionTech.click();
         Thread.sleep(5000);
-
         WebElement messageField = getDriver().findElement(
                 By.id("question_form_message")
         );
@@ -150,7 +150,7 @@ public class GalinaKuklevaTest extends BaseTest {
         getDriver().get(baseUrl);
         getDriver().manage().window().maximize();
         int expectedResult = 30;
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         WebElement element = getDriver().findElement(
                 By.xpath("//div[@id = 'desktop-menu']//a[text()= 'API']"));
         element.click();

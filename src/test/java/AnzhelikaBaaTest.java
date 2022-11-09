@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class AnzhelikaBaaTest extends BaseTest {
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
 
@@ -13,7 +14,7 @@ public class AnzhelikaBaaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -51,7 +52,7 @@ public class AnzhelikaBaaTest extends BaseTest {
         String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement guideButton = getDriver().findElement(
                 By.xpath("//div[@id= 'desktop-menu']//a[@href='/guide']")
@@ -71,10 +72,10 @@ public class AnzhelikaBaaTest extends BaseTest {
         String url = "https://openweathermap.org/";
         String fTempSymbol = "°F";
         boolean expectedResult = true;
-
+        
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement fUnitsButton = getDriver().findElement(
                 By.xpath("//div[@class='switch-container']//div[text()='Imperial: °F, mph']")
@@ -90,5 +91,86 @@ public class AnzhelikaBaaTest extends BaseTest {
         boolean actualResult = tempForCityInF.getText().contains(fTempSymbol);
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+    @Test
+    public void testSubMenu_WhenUsingDDownSupportMenu() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "FAQ";
+        String expectedResult2 = "How to start";
+        String expectedResult3 = "Ask a question";
+
+        getDriver().manage().window().maximize();
+        getDriver().get(url);
+        Thread.sleep(7000);
+
+        WebElement dDownSupport = getDriver().findElement(
+                By.xpath("//div[@id='support-dropdown']")
+        );
+        dDownSupport.click();
+        Thread.sleep(7000);
+
+        WebElement faqButton = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/faq']")
+        );
+        Thread.sleep(7000);
+
+        WebElement howToStartButton = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/appid']")
+        );
+        Thread.sleep(7000);
+
+        WebElement askQuestionButton = getDriver().findElement(
+                By.xpath("//ul[@id='support-dropdown-menu']/li[3]/a[@href='https://home.openweathermap.org/questions']")
+        );
+        Thread.sleep(7000);
+
+        String actualResult1 =  faqButton.getText();
+        String actualResult2 = howToStartButton.getText();
+        String actualResult3 = askQuestionButton.getText();;
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
+        Assert.assertTrue(faqButton.isDisplayed());
+        Assert.assertTrue(howToStartButton.isDisplayed());
+        Assert.assertTrue(askQuestionButton.isDisplayed());
+    }
+    @Test
+    public void testTwoCookiesButtonsAndText_WhenOpenBaseURL() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "Allow all";
+        String expectedResult2 = "Manage cookies";
+        String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential " +
+                "cookies to help us improve our services. Any data collected is anonymised. You can allow all cookies" +
+                " or manage them individually.";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+        Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
+
+        WebElement textPanel = getDriver().findElement(
+                By.className("stick-footer-panel__description")
+        );
+        Thread.sleep(7000);
+
+        WebElement allowAllButton = getDriver().findElement(
+                By.xpath("//button[text()='Allow all']")
+        );
+        Thread.sleep(7000);
+
+        WebElement manageCookiesButton = getDriver().findElement(
+                By.xpath("//a[@href='/cookies-settings']")
+        );
+        Thread.sleep(7000);
+
+        String actualResult1 = allowAllButton.getText();
+        String actualResult2 = manageCookiesButton.getText();
+        String actualResult = textPanel.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertTrue(allowAllButton.isDisplayed());
+        Assert.assertTrue(manageCookiesButton.isDisplayed());
     }
 }

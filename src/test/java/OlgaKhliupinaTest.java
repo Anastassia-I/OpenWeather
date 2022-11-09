@@ -1,10 +1,31 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class OlgaKhliupinaTest extends BaseTest {
+
+   @Test
+   public void testLinkAndTitle_WhenGoingToGuideMenu() throws InterruptedException {
+
+      String url = "https://openweathermap.org/";
+      String expectedResultUrl = "https://openweathermap.org/guide";
+      String expectedResultTitle = "OpenWeatherMap API guide - OpenWeatherMap";
+
+      getDriver().manage().window().maximize();
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      WebElement menuGuide = getDriver().findElement(By.xpath("//div/ul//li/a[@href='/guide']"));
+      menuGuide.click();
+      Thread.sleep(1000);
+
+      Assert.assertEquals(getDriver().getCurrentUrl(), expectedResultUrl);
+      Assert.assertEquals(getDriver().getTitle(), expectedResultTitle);
+   }
 
    @Test
    public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
@@ -13,9 +34,8 @@ public class OlgaKhliupinaTest extends BaseTest {
       String cityName = "Paris";
       String expectedResult = "Paris, FR";
 
-      getDriver().manage().window().maximize();
       getDriver().get(url);
-      Thread.sleep(6000);
+      Thread.sleep(10000);
 
       WebElement searchCityField = getDriver().findElement(
               By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']"));
@@ -51,7 +71,7 @@ public class OlgaKhliupinaTest extends BaseTest {
 
       getDriver().manage().window().maximize();
       getDriver().get(url);
-      Thread.sleep(6000);
+      Thread.sleep(10000);
 
       Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
 
@@ -79,6 +99,39 @@ public class OlgaKhliupinaTest extends BaseTest {
    }
 
    @Test
+   public void testExistFAQHowToStartAskAQuestion_InSupportDropdownMenu() throws InterruptedException {
+
+      String url = "https://openweathermap.org/";
+      int expectedResult = 3;
+      String expectedResultFaq = "FAQ";
+      String expectedResultHowToStart = "How to start";
+      String expectedResultAskAQuestion = "Ask a question";
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
+      menuSupport.click();
+      Thread.sleep(1000);
+
+      Assert.assertTrue(getDriver().findElement(By.id("support-dropdown-menu")).isDisplayed());
+
+      int actualResult = getDriver().findElements(By.xpath("//ul[@id='support-dropdown-menu']/li")).size();
+
+      Assert.assertEquals(actualResult, expectedResult);
+
+      WebElement dropdownFAQ = getDriver().findElement(By.xpath("//nav/ul/div/ul//li/a[@href='/faq']"));
+      WebElement dropdownHowToStart = getDriver().findElement(
+              By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='/appid']"));
+      WebElement dropdownAskAQuestion = getDriver().findElement(
+              By.xpath("//ul[@id='support-dropdown-menu']/li/a[@href='https://home.openweathermap.org/questions']"));
+
+      Assert.assertEquals(dropdownFAQ.getText(), expectedResultFaq);
+      Assert.assertEquals(dropdownHowToStart.getText(), expectedResultHowToStart);
+      Assert.assertEquals(dropdownAskAQuestion.getText(), expectedResultAskAQuestion);
+   }
+
+   @Test
    public void testError_WhenSubmitInSupportWithoutCaptcha() throws InterruptedException {
 
       String url = "https://openweathermap.org/";
@@ -89,7 +142,7 @@ public class OlgaKhliupinaTest extends BaseTest {
 
       getDriver().manage().window().maximize();
       getDriver().get(url);
-      Thread.sleep(   5000);
+      Thread.sleep(10000);
 
       WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
       menuSupport.click();
@@ -128,5 +181,21 @@ public class OlgaKhliupinaTest extends BaseTest {
       WebElement errorText = getDriver().findElement(By.xpath("//div[@class = 'help-block']"));
 
       Assert.assertEquals(errorText.getText(), expectedResult);
+   }
+
+   @Test
+   public  void testCheckUrlAfterRefreshMainPage() throws InterruptedException {
+      String url = "https://openweathermap.org/";
+      String expectedResult = url;
+
+      getDriver().get(url);
+      Thread.sleep(10000);
+
+      WebElement logo = getDriver().findElement(
+              By.xpath("//img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+      logo.click();
+      Thread.sleep(8000);
+
+      Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
    }
 }

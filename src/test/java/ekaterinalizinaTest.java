@@ -14,7 +14,7 @@ public class ekaterinalizinaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(8000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -46,5 +46,27 @@ public class ekaterinalizinaTest extends BaseTest {
         String actualResult = h2CityCountHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testTemperatureChangedInToF() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        getDriver().manage().window().maximize();
+        String fTempSymbol = "°F";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement ButtonTemperatureFarenheit = getDriver().findElement(
+                By.xpath("//div[@id = 'weather-widget']//div[text() = 'Imperial: °F, mph']"));
+        ButtonTemperatureFarenheit.click();
+
+        Thread.sleep(5000);
+
+        WebElement tempF = getDriver().findElement(
+                By.xpath("//div[@id = 'weather-widget']//span[@class ='heading']"));
+
+        Assert.assertTrue(tempF.getText().contains(fTempSymbol));
     }
 }

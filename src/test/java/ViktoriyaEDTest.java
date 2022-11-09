@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -22,7 +23,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
@@ -44,7 +45,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         WebElement h2CityNameHeader = getDriver().findElement(By.xpath("//div[@id = 'weather-widget']//h2"));
 
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         String actualResult = h2CityNameHeader.getText();
 
@@ -60,7 +61,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         getDriver().findElement(By.xpath("//a[@href = '/guide']")).click();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
@@ -74,7 +75,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult = "°F";
 
         getDriver().get(url);
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@class='switch-container']/div[3]")).click();
         WebElement weatherInF = getDriver().findElement(By.xpath("//span[@class='heading']"));
@@ -94,7 +95,7 @@ public class ViktoriyaEDTest extends BaseTest {
         String expectedResult3 = "Manage cookies";
 
         getDriver().get(url);
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         Assert.assertTrue(getDriver().findElement(By.className("stick-footer-panel__container")).isDisplayed());
 
@@ -122,7 +123,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         WebElement menuSupportDropDown = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
         menuSupportDropDown.click();
@@ -153,7 +154,7 @@ public class ViktoriyaEDTest extends BaseTest {
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[@id='support-dropdown']")).click();
         getDriver().findElement(By.linkText("Ask a question")).click();
@@ -174,6 +175,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void test_SwitchFahrenheitToCelsius() throws InterruptedException {
 
@@ -181,7 +183,7 @@ public class ViktoriyaEDTest extends BaseTest {
         Boolean expectedResult = true;
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         getDriver().findElement(By.xpath("//div[text()='Imperial: °F, mph']")).click();
         WebElement displayCurrentWeather = getDriver().findElement(By.xpath("//div[@class='current-temp']/span"));
@@ -191,6 +193,25 @@ public class ViktoriyaEDTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[text()='Metric: °C, m/s']")).click();
 
         Assert.assertEquals(displayCurrentWeather.getText().contains("°C"), expectedResult);
+    }
+
+    @Test
+    public void test_FindRome() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String city = "Rome";
+        boolean expectedResult = true;
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        getDriver().findElement(
+                By.xpath("//div[@id='desktop-menu']//input[@placeholder='Weather in your city']")
+        ).sendKeys(city + "\n");
+
+        boolean actualResult = getDriver().getCurrentUrl().contains("find") && getDriver().getCurrentUrl().contains(city);
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
 

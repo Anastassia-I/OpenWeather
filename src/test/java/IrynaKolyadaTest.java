@@ -14,7 +14,7 @@ public class IrynaKolyadaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']"));
@@ -50,7 +50,7 @@ public class IrynaKolyadaTest extends BaseTest {
         String symbolF = "°F";
 
         getDriver().get(url);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         WebElement temperatureF = getDriver().findElement
                 (By.xpath("//div[text()='Imperial: °F, mph']"));
@@ -72,7 +72,7 @@ public class IrynaKolyadaTest extends BaseTest {
         String expectedResult2 = "Manage cookies";
 
         getDriver().get(url);
-        Thread.sleep(3000);
+        Thread.sleep(10000);
         Assert.assertTrue(getDriver().findElement
                 (By.xpath("//div[@id='stick-footer-panel']//div[@class='container']")).isDisplayed());
 
@@ -91,6 +91,32 @@ public class IrynaKolyadaTest extends BaseTest {
                 (By.xpath("//a[@href='/cookies-settings']"));
 
         Assert.assertEquals(buttonManageCookiesFooter.getText(), expectedResult2);
+    }
+
+    @Test
+    public void testCheckSubmenuSupport() throws InterruptedException {
+        getDriver().get("https://openweathermap.org/");
+        Thread.sleep(10000);
+
+        WebElement headerButtonSuppot = getDriver().findElement(By.id("support-dropdown"));
+        Thread.sleep(2000);
+        headerButtonSuppot.click();
+        Assert.assertEquals(getDriver().findElements
+                (By.xpath("//ul[@id='support-dropdown-menu']/li")).size(),3);
+
+        WebElement supportMenuFAQ = getDriver().findElement
+                (By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/faq']"));
+        Assert.assertEquals(supportMenuFAQ.getText(),"FAQ");
+        Thread.sleep(1000);
+
+        WebElement supportMenuHowToStart = getDriver().findElement
+                (By.xpath("//ul[@id='support-dropdown-menu']//a[@href='/appid']"));
+        Assert.assertEquals(supportMenuHowToStart.getText(),"How to start");
+
+        Thread.sleep(2000);
+        WebElement supportMenuAskQuestion = getDriver().findElement
+                (By.xpath("//ul[@id='support-dropdown-menu']//a[@target='_blank']"));
+        Assert.assertEquals(supportMenuAskQuestion.getText(),"Ask a question");
     }
 
 }
