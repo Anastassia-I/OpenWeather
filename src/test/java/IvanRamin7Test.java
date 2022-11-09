@@ -29,10 +29,11 @@ public class IvanRamin7Test extends BaseTest {
                 By.xpath("//div[@id = 'weather-widget']//ul[@class = 'search-dropdown-menu']//span[text() = 'Paris, FR ']")
         );
         parisFRChoiceFromDropdownMenu.click();
-        Thread.sleep(3000);
+
         WebElement h2CityNameHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
+        Thread.sleep(3000);
         String actualResult = h2CityNameHeader.getText();
 
 

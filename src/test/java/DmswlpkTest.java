@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -19,7 +17,7 @@ public class DmswlpkTest extends BaseTest {
         getDriver().get(url);
         String expectedResult = "FAQ".concat("How to start".concat("Ask a question"));
 
-        sleep(5000);
+        sleep(7000);
         getDriver().manage().window().maximize();
 
         WebElement menuSupport = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
@@ -43,7 +41,7 @@ public class DmswlpkTest extends BaseTest {
 
         getDriver().get(url);
 
-        sleep(4000);
+        sleep(7000);
 
         getDriver().findElement(
                 By.name("q")).sendKeys("Rome", ENTER);
@@ -61,7 +59,7 @@ public class DmswlpkTest extends BaseTest {
 
         getDriver().get(url);
 
-        sleep(4000);
+        sleep(7000);
 
         String expectedResult = "We use cookies which are essential for the site to work. " +
                 "We also use non-essential cookies to help us improve our services. Any data collected is anonymised." +
