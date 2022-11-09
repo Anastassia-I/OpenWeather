@@ -59,8 +59,7 @@ public class Dasha1991Test extends BaseTest {
         String expectedResult3 = "Ask a question";
 
         getDriver().get(url);
-        getDriver().manage().window().maximize();
-        Thread.sleep(5000);
+        Thread.sleep(7000);
 
         WebElement findSupportButton = getDriver().findElement(By.xpath("//div[@id='support-dropdown']"));
 
