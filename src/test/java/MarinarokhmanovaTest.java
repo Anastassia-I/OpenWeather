@@ -105,7 +105,7 @@ public class MarinarokhmanovaTest extends BaseTest {
         String expectedResult3 = "Manage cookies";
 
         getDriver().get(url);
-        Thread.sleep(3000);
+        Thread.sleep(10000);
 
         WebElement panelWithText = getDriver().findElement(
                 By.xpath("//div[@class = 'stick-footer-panel__container']" +
