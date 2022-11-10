@@ -22,22 +22,22 @@ public class MariaKuzhTest extends BaseTest {
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder = 'Search city']")
         );
         searchCityField.click();
-        Thread.sleep(7000);
+        Thread.sleep(2000);
 
         searchCityField.sendKeys(cityName);
-        Thread.sleep(7000);
+        Thread.sleep(2000);
         WebElement searchButton = getDriver().findElement(
                 By.xpath("//button[@type = 'submit']")
         );
         searchButton.click();
-        Thread.sleep(7000);
+        Thread.sleep(2000);
 
         WebElement parisFRChoiceInDropdownMenu = getDriver().findElement(
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
         );
         parisFRChoiceInDropdownMenu.click();
 
-        Thread.sleep(7000);
+        Thread.sleep(2000);
 
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
