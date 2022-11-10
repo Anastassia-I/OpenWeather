@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -91,5 +93,40 @@ public class MarinarokhmanovaTest extends BaseTest {
         boolean actualResult = unitsImperialFCity.getText().contains("F");
 
         Assert.assertTrue(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testConfirmPanelWithTextAtBottom() throws InterruptedException {
+        String url = "https://openweathermap.org/";
+        String expectedResult1 = "We use cookies which are essential for the site to work. We also use non-essential " +
+                "cookies to help us improve our services. Any data collected is anonymised. You can allow all " +
+                "cookies or manage them individually.";
+        String expectedResult2 = "Allow all";
+        String expectedResult3 = "Manage cookies";
+
+        getDriver().get(url);
+        Thread.sleep(3000);
+
+        WebElement panelWithText = getDriver().findElement(
+                By.xpath("//div[@class = 'stick-footer-panel__container']" +
+                        "/p[@class = 'stick-footer-panel__description']")
+        );
+
+        WebElement panelWithAllowAll = getDriver().findElement(
+                By.xpath("//div[@class ='stick-footer-panel__btn-container']/button[@type = 'button']")
+        );
+
+        WebElement panelWithManageCookies = getDriver().findElement(
+                By.xpath("//div[@class ='stick-footer-panel__btn-container']" +
+                        "/a[@class = 'stick-footer-panel__link']")
+        );
+
+        String actualResult1 = panelWithText.getText();
+        String actualResult2 = panelWithAllowAll.getText();
+        String actualResult3 = panelWithManageCookies.getText();
+
+        Assert.assertEquals(actualResult1, expectedResult1);
+        Assert.assertEquals(actualResult2, expectedResult2);
+        Assert.assertEquals(actualResult3, expectedResult3);
     }
 }
