@@ -37,7 +37,7 @@ public class MariaKuzhTest extends BaseTest {
         );
         parisFRChoiceInDropdownMenu.click();
 
-        Thread.sleep(2000);
+        Thread.sleep(5000);
 
         WebElement h2CityCountryHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
