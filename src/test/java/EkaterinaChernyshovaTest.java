@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class EkaterinaChernyshovaTest extends BaseTest {
+
     @Test
     public void testH2TagText_WhenSearchingCityCountry() throws InterruptedException {
         String url = "https://openweathermap.org/";
@@ -12,7 +13,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         String expectedResult = "Paris, FR";
 
         getDriver().get(url);
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
         WebElement searchCityField = getDriver().findElement(
                 By.xpath("//div[@id='weather-widget']//input[@placeholder='Search city']")
@@ -24,7 +25,7 @@ public class EkaterinaChernyshovaTest extends BaseTest {
                 By.xpath("//div[@id='weather-widget']//button[@type='submit']")
         );
         searchButton.click();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
 
         WebElement cityChoiceInDropDownMenu = getDriver().findElement(
                 By.xpath("//ul[@class = 'search-dropdown-menu']/li/span[text() = 'Paris, FR ']")
@@ -34,61 +35,33 @@ public class EkaterinaChernyshovaTest extends BaseTest {
         WebElement H2CityNameHeader = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//h2")
         );
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         String actualResult = H2CityNameHeader.getText();
 
-
+        Thread.sleep(1000);
         Assert.assertEquals(actualResult, expectedResult);
+
+        getDriver().quit();
     }
+
     @Test
-    public void testLinkAndTitleOnThePage_OpenWeatherMap() throws InterruptedException {
+    public void testMainLinkDoesntChange() throws InterruptedException {
 
         String url = "https://openweathermap.org/";
-        String expectedResult1 = "https://openweathermap.org/guide";
-        String expectedResult2 = "OpenWeatherMap API guide - OpenWeatherMap";
+        String expectedResult = "https://openweathermap.org/";
 
         getDriver().get(url);
         getDriver().manage().window().maximize();
-        Thread.sleep(5000);
-
-        WebElement guideMenu = getDriver().findElement(By.xpath("//div[@id = 'desktop-menu']//a[@href = '/guide']")
-        );
-        guideMenu.click();
-
-        String actualResult1 = getDriver().getCurrentUrl();
-        String actualResult2 = getDriver().getTitle();
-
-        Assert.assertEquals(actualResult1, expectedResult1);
-        Assert.assertEquals(actualResult2, expectedResult2);
-    }
-
-    @Test
-    public void testIfTemperatureShowsInCelsius() throws InterruptedException {
-
-        String url = "https://openweathermap.org/";
-        String expectedResult = "°C";
-
-        getDriver().get(url);
         Thread.sleep(10000);
 
-        WebElement imperialFahrenheitTemperatureButton = getDriver().findElement(By.xpath(
-                "//div[@id = 'weather-widget']//div[@class = 'option'][text() = 'Imperial: °F, mph']")
+        WebElement logo = getDriver().findElement(By.xpath(
+                "//ul[@id = 'first-level-nav']/li[@class = 'logo']")
         );
-        imperialFahrenheitTemperatureButton.click();
-        Thread.sleep(5000);
+        logo.click();
+        Thread.sleep(10000);
 
-        WebElement imperialCelciusTemperatureButton = getDriver().findElement(By.xpath(
-                "//div[@class = 'option'][text() = 'Metric: °C, m/s']")
-        );
-        imperialCelciusTemperatureButton.click();
-        Thread.sleep(5000);
+        String actualResult = getDriver().getCurrentUrl();
 
-        WebElement symbolC = getDriver().findElement(By.xpath(
-                "//span[@class = 'heading']")
-        );
-
-        Boolean actualResult = symbolC.isDisplayed();
-
-        Assert.assertTrue(actualResult, expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
