@@ -16,7 +16,7 @@ public class Vira05Test extends BaseTest {
 
         getDriver().get(url);
 
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         WebElement searchCityFild = getDriver().findElement(
                 By.xpath("//div[@id = 'weather-widget']//input[@placeholder='Search city']")
@@ -47,5 +47,29 @@ public class Vira05Test extends BaseTest {
         String actualResult = h2CityCountryHeader.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+    }
+    @Test
+    public void testOpenAndClickToGuida() throws InterruptedException {
+
+        String url = "https://openweathermap.org/";
+        String buttonGuide = "Guide";
+        String expectedResult = "https://openweathermap.org/guide";
+        String expectedResult1 = "OpenWeatherMap API guide - OpenWeatherMap";
+
+        getDriver().get(url);
+        Thread.sleep(10000);
+
+        WebElement ButtonGuide = getDriver().findElement(
+                By.xpath("//a[@href='/guide']")
+        );
+        ButtonGuide.click();
+
+        String guideButton = getDriver().getCurrentUrl();
+
+        String actualResult = guideButton;
+        Assert.assertEquals(actualResult, expectedResult);
+
+        String actualResult1 = getDriver().getTitle();
+        Assert.assertEquals(actualResult1, expectedResult1);
     }
 }
