@@ -87,7 +87,7 @@ public class ViktoriyaEDTest extends BaseTest {
         openBaseURL();
         waitForGrayWindowDisappeared();
 
-        click(GUIDE_BUTTON, getWait5());
+        click(GUIDE_BUTTON, getWait10());
 
         Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
         Assert.assertEquals(getDriver().getTitle(), expectedResult1);
